@@ -1,17 +1,30 @@
 //jshint esversion:6
- 
+
+
+require("dotenv").config(); 
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
 const _=require("lodash");
+
+
+
+
+
+ // require("dotenv").config(); 
+  console.log(process.env.ATLAS_URL); 
+// const mongoDB = "mongodb+srv://" + srvr + ":" + srvrCred + "@cluster0.57qzj.mongodb.net/todolistDB";
  
 app.set('view engine', 'ejs');
  
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
  
-mongoose.connect("mongodb+srv://naveenkuma1045:naveen4510@cluster0.35fqhte.mongodb.net/todolistDB", {useNewUrlParser: true});
+// mongoose.connect(process.env.ATLAS_URL, {useNewUrlParser: true,
+// useUnifiedTopology:true});
+
+ mongoose.connect("mongodb+srv://naveenkuma1045:naveen4510@cluster0.35fqhte.mongodb.net/todolistDB", { useNewUrlParser: true });
  
 //Created Schema
 const itemsSchema = new mongoose.Schema({
@@ -201,13 +214,13 @@ app.get("/about", function(req, res){
   res.render("about");
 });
  
-
-
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 3000;
+let port=process.env.PORT;
+if(port==null || port == "")
+{
+  port=3000;
 }
- 
-app.listen(port, function() {
-  console.log("Server started succesfully");
-});  
+
+
+app.listen(port, function () { 
+  console.log("Server started successfully");
+   });
